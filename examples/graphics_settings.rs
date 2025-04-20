@@ -61,7 +61,6 @@ impl event::EventHandler<ggez::GameError> for MainState {
         while ctx.time.check_update_time(DESIRED_FPS) {
             self.angle += 0.01;
 
-            println!("GUH");
             if self.window_settings.toggle_fullscreen {
                 let fullscreen_type = if self.window_settings.is_fullscreen {
                     conf::FullscreenType::Desktop
