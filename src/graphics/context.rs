@@ -753,14 +753,16 @@ impl GraphicsContext {
     }
 
     pub(crate) fn resize(&mut self, _new_size: dpi::PhysicalSize<u32>) {
-        let size = self.window.inner_size();
-        let _ = self.wgpu.device.poll(wgpu::Maintain::Wait);
-        self.surface_config.width = size.width.max(1);
-        self.surface_config.height = size.height.max(1);
-        self.wgpu
-            .surface
-            .configure(&self.wgpu.device, &self.surface_config);
-        self.update_frame_image();
+        if self.window_mode.resizable {
+            let size = self.window.inner_size();
+            let _ = self.wgpu.device.poll(wgpu::Maintain::Wait);
+            self.surface_config.width = size.width.max(1);
+            self.surface_config.height = size.height.max(1);
+            self.wgpu
+                .surface
+                .configure(&self.wgpu.device, &self.surface_config);
+            self.update_frame_image();
+        }
     }
 
     pub(crate) fn update_frame_image(&mut self) {
