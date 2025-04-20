@@ -592,7 +592,11 @@ impl GraphicsContext {
     /// Sets the window to fullscreen or back.
     pub fn set_fullscreen(&mut self, fullscreen: conf::FullscreenType) -> GameResult {
         let window_mode = self.window_mode.fullscreen_type(fullscreen);
-        self.set_mode(window_mode)
+        if self.window_mode.resizable {
+            self.set_mode(window_mode)
+        } else {
+            Ok(())
+        }
     }
 
     /// Sets whether or not the window is resizable.
