@@ -753,6 +753,7 @@ impl GraphicsContext {
     }
 
     pub(crate) fn resize(&mut self, _new_size: dpi::PhysicalSize<u32>) {
+        println!("{}",self.window_mode.resizable);
         if self.window_mode.resizable {
             let size = self.window.inner_size();
             let _ = self.wgpu.device.poll(wgpu::Maintain::Wait);
